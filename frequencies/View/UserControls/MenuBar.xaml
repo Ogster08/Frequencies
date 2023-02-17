@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="frequencies.View.UserControls.MenuBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:frequencies.View.UserControls"
+             mc:Ignorable="d" 
+             Height="40" d:DesignWidth="800">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <Menu Height="40" Background="Transparent">
+                <MenuItem Height="40" Width="40" VerticalContentAlignment="top">
+                    <MenuItem.Header>
+                        <StackPanel  Margin="-7">
+                            <Image Source="C:/Users/olive/Documents/GitHub/Frequencies/frequencies/Images/menu.png" Height="38" Width="38"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+                    <MenuItem x:Name="AffineCMenu" Header="Affine Cipher" Click="AffineCMenu_Click"/>
+                    <MenuItem x:Name="AtbashCMenu" Header="Affine Cipher" Click="AtbashCMenu_Click"/>
+                </MenuItem>
+            </Menu>
+            <TextBlock FontSize="28" Text="{Binding CurrentTool}" TextAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
