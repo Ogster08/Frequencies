@@ -14,6 +14,7 @@ namespace frequencies.View.UserControls
         {
             DataContext = this;
             InitializeComponent();
+            CurrentTool = "home";
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -31,8 +32,10 @@ namespace frequencies.View.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void AffineCMenu_Click(object sender, System.Windows.RoutedEventArgs e) => CurrentTool = "Affine Cipher";
-        private void AtbashCMenu_Click(object sender, System.Windows.RoutedEventArgs e) => CurrentTool = "Atbash Cipher";
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 
 

@@ -7,19 +7,14 @@
              mc:Ignorable="d" 
              Height="40" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <Menu Height="40" Background="Transparent">
-                <MenuItem Height="40" Width="40" VerticalContentAlignment="top">
-                    <MenuItem.Header>
-                        <StackPanel  Margin="-7">
-                            <Image Source="C:/Users/olive/Documents/GitHub/Frequencies/frequencies/Images/menu.png" Height="38" Width="38"/>
-                        </StackPanel>
-                    </MenuItem.Header>
-                    <MenuItem x:Name="AffineCMenu" Header="Affine Cipher" Click="AffineCMenu_Click"/>
-                    <MenuItem x:Name="AtbashCMenu" Header="Affine Cipher" Click="AtbashCMenu_Click"/>
-                </MenuItem>
-            </Menu>
-            <TextBlock FontSize="28" Text="{Binding CurrentTool}" TextAlignment="Center"/>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Button Background="Transparent" Click="Button_Click">
+            <Image Source="/Images/house.png"/>
+        </Button>
+        <TextBlock Grid.Column="1" Margin="0,0,40,0" FontSize="28" Text="{Binding CurrentTool}" TextAlignment="Center"/>
     </Grid>
 </UserControl>
