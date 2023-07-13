@@ -66,5 +66,10 @@ namespace frequencies
 
         }
 
+        /*private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow = this;
+        }*/
+
     }
 }
