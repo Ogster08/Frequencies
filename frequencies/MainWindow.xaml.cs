@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,61 +16,13 @@ namespace frequencies
         {
             DataContext = this;
             InitializeComponent();
-            PlaceHolder = "Enter cipher text: ";
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private string placeHolder;
-
-        public string PlaceHolder
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            get { return placeHolder; }
-            set
-            {
-                placeHolder = value;
-                tbPlaceHolder.Text = placeHolder;
-            }
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("generic.xaml", UriKind.RelativeOrAbsolute));
         }
-
-        private string cipherText;
-
-        public string CipherText
-        {
-            get { return cipherText; }
-            set
-            {
-                cipherText = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void txtInput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtInput.Text))
-            {
-                tbPlaceHolder.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                tbPlaceHolder.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private void btnEnter_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        /*private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow = this;
-        }*/
 
     }
 }

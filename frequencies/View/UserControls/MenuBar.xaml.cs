@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace frequencies.View.UserControls
 {
@@ -38,8 +39,9 @@ namespace frequencies.View.UserControls
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("chooseCipher.xaml", UriKind.RelativeOrAbsolute));
+            frame.Content = null;
         }
+
     }
 
 

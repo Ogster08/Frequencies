@@ -8,20 +8,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-
-        <Rectangle  Fill="#363454" Grid.RowSpan="3"/>
-        <usercontrols:MenuBar Grid.Row="0"/>
-        <Grid Grid.Row="1" Background="transparent" Margin="5">
-            <TextBox TabIndex="1" x:Name="txtInput" Text="{Binding CipherText}" Foreground="AntiqueWhite" BorderBrush="AliceBlue" FontSize="16" FontWeight="Light" Background="Transparent" TextChanged="txtInput_TextChanged" TextWrapping="Wrap"/>
-            <TextBlock x:Name="tbPlaceHolder" Panel.ZIndex="-1" Text="{Binding PlaceHolder}" FontSize="16" FontWeight="Light" Foreground="DarkGray" Margin="5,0,0,0"/>
-        </Grid>
-
-        <Control TabIndex="0"/>
-        <Frame x:Name="Main" NavigationUIVisibility="Hidden" VerticalAlignment="Top" Height="450" x:FieldModifier="public"/>
+        <Rectangle  Fill="#363454"/>
+        <Button BorderThickness="0"  Content="Generic" FontSize="30" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
+        <Frame x:Name="Main" NavigationUIVisibility="Hidden" x:FieldModifier="public"/>
     </Grid>
 </Window>
