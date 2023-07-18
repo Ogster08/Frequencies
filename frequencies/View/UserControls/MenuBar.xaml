@@ -15,6 +15,6 @@
         <Button BorderThickness="0" Background="Transparent" Click="Button_Click">
             <Image Source="pack://application:,,,/Images/houseb.png"/>
         </Button>
-        <TextBlock Grid.Column="1" Margin="0,0,40,0" FontSize="28" Text="{Binding CurrentTool}" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" Margin="0,0,40,0" Foreground="#FFC745" FontSize="28" Text="{Binding CurrentTool}" TextAlignment="Center"/>
     </Grid>
 </UserControl>

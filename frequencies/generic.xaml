@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <Rectangle  Fill="#363454" Grid.RowSpan="3"/>
-        <usercontrols:MenuBar Grid.Row="0"/>
+        <usercontrols:MenuBar x:Name="MenuBar" CurrentTool="{Binding PageName}" Grid.Row="0"/>
         <Grid Grid.Row="1" Background="transparent" Margin="5">
             <TextBox TabIndex="1" x:Name="txtInput" Text="{Binding CipherText}" Foreground="AntiqueWhite" BorderBrush="AliceBlue" FontSize="16" FontWeight="Light" Background="Transparent" TextChanged="txtInput_TextChanged" TextWrapping="Wrap"/>
             <TextBlock x:Name="tbPlaceHolder" Panel.ZIndex="-1" Text="{Binding PlaceHolder}" FontSize="16" FontWeight="Light" Foreground="DarkGray" Margin="5,0,0,0"/>

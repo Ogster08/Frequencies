@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\olive\Documents\GitHub\Frequencies\frequencies\obj\Debug\net6.0-windows\
+C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\obj\Debug\net6.0-windows\
 frequencies
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\olive\Documents\GitHub\Frequencies\frequencies\App.xaml
+C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\App.xaml
 4184881950
 2496483902
 81634722210
 194618410957
 generic.xaml;MainWindow.xaml;View\UserControls\clearableTextBox.xaml;View\UserControls\MenuBar.xaml;
 
-False
+True
 

@@ -27,6 +27,7 @@ namespace frequencies
             DataContext = this;
             InitializeComponent();
             PlaceHolder = "Enter cipher text: ";
+            PageName = this.GetType().Name;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -40,6 +41,18 @@ namespace frequencies
             {
                 placeHolder = value;
                 tbPlaceHolder.Text = placeHolder;
+            }
+        }
+
+        private string pageName;
+
+        public string PageName
+        {
+            get { return pageName; }
+            set
+            {
+                pageName = value;
+                MenuBar.Name = pageName;
             }
         }
 
