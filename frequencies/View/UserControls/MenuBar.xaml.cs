@@ -16,7 +16,6 @@ namespace frequencies.View.UserControls
         {
             DataContext = this;
             InitializeComponent();
-            CurrentTool = this.GetType().Name;
         }
 
         

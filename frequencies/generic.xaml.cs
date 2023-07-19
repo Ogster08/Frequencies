@@ -28,6 +28,7 @@ namespace frequencies
             InitializeComponent();
             PlaceHolder = "Enter cipher text: ";
             PageName = this.GetType().Name;
+            MenuBar.CurrentTool = PageName;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

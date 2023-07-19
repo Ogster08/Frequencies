@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Rectangle  Fill="#363454"/>
-        <Button BorderThickness="0"  Content="Generic" FontSize="30" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0"  Content="Generic" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
         <Frame x:Name="Main" NavigationUIVisibility="Hidden" x:FieldModifier="public"/>
     </Grid>
 </Window>
