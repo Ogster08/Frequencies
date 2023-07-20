@@ -6,10 +6,43 @@
         xmlns:local="clr-namespace:frequencies" 
         xmlns:usercontrols="clr-namespace:frequencies.View.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" 
+        Height="450" 
+        Width="800"
+        Loaded="Window_Loaded"
+        SizeChanged="Window_SizeChanged"
+        >
+
     <Grid>
         <Rectangle  Fill="#363454"/>
-        <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0"  Content="Generic" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Viewbox Name="box1" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                </Viewbox>
+                <Viewbox Name="box2" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                </Viewbox>
+                <Viewbox Name="box3" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                </Viewbox>
+                <Viewbox Name="box4" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                </Viewbox>
+                <Viewbox Name="box5" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                </Viewbox>
+                <Viewbox Name="box6" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                </Viewbox>
+                <Viewbox Name="box7" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                </Viewbox>
+            </StackPanel>
+        </ScrollViewer>
+        
         <Frame x:Name="Main" NavigationUIVisibility="Hidden" x:FieldModifier="public"/>
     </Grid>
+
 </Window>

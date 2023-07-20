@@ -16,7 +16,9 @@ namespace frequencies
         {
             DataContext = this;
             InitializeComponent();
+            
         }
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -24,5 +26,28 @@ namespace frequencies
             frame.Navigate(new Uri("generic.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            double h = ((System.Windows.Controls.Panel)Application.Current.MainWindow.Content).ActualHeight;
+            box1.MaxHeight = h / 7;
+            box2.MaxHeight = h / 7;
+            box3.MaxHeight = h / 7;
+            box4.MaxHeight = h / 7;
+            box5.MaxHeight = h / 7;
+            box6.MaxHeight = h / 7;
+            box7.MaxHeight = h / 7;
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double h = ((System.Windows.Controls.Panel)Application.Current.MainWindow.Content).ActualHeight;
+            box1.MaxHeight = h / 7;
+            box2.MaxHeight = h / 7;
+            box3.MaxHeight = h / 7;
+            box4.MaxHeight = h / 7;
+            box5.MaxHeight = h / 7;
+            box6.MaxHeight = h / 7;
+            box7.MaxHeight = h / 7;
+        }
     }
 }
