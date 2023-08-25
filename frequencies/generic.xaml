@@ -51,10 +51,10 @@
                 </Grid.RowDefinitions>
 
                 <Border Margin="5" Grid.Row="0" BorderThickness="1" BorderBrush="AliceBlue">
-                    <TextBlock Margin="5" Name="KeyOutput" Foreground="#FFC745" FontSize="16" Text="{Binding KeyText}"/>
+                    <TextBlock Margin="5" Name="KeyOutput" Foreground="#FFC745" FontSize="16" Text="{Binding KeyText}" TextWrapping="Wrap"/>
                 </Border>
                 <Border Margin="5" Grid.Row="1" BorderThickness="1" BorderBrush="AliceBlue">
-                    <TextBlock Margin="5" Name="SolutionOutput" Foreground="#FFC745" FontSize="16" Text="{Binding SolutionText}"/>
+                    <TextBlock Margin="5" Name="SolutionOutput" Foreground="#FFC745" FontSize="16" Text="{Binding SolutionText}" TextWrapping="Wrap"/>
                 </Border>
                 
                 </Grid>

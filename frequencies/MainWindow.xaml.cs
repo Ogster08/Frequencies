@@ -23,7 +23,7 @@ namespace frequencies
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("generic.xaml", UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("caesar.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

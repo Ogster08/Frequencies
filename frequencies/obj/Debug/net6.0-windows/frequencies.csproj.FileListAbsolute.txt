@@ -30,3 +30,5 @@ C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\bin\Debug\net6.0-windows
 C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\obj\Debug\net6.0-windows\generic.g.cs
 C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\obj\Debug\net6.0-windows\generic.baml
 C:\Users\olive\Documents\GitHub\Frequencies\frequencies\obj\Debug\net6.0-windows\App.baml
+C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\obj\Debug\net6.0-windows\caesar.g.cs
+C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\obj\Debug\net6.0-windows\caesar.baml
