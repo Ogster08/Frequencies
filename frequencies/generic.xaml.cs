@@ -27,6 +27,8 @@ namespace frequencies
             DataContext = this;
             InitializeComponent();
             PlaceHolder = "Enter cipher text: ";
+            KeyText = "Key: ";
+            SolutionText = "Solution: ";
             PageName = this.GetType().Name;
             MenuBar.CurrentTool = PageName;
         }
@@ -66,6 +68,30 @@ namespace frequencies
             {
                 cipherText = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private string keyText;
+
+        public string KeyText
+        {
+            get { return keyText; }
+            set
+            {
+                keyText = value;
+                KeyOutput.Text = keyText;
+            }
+        }
+
+        private string solutionText;
+
+        public string SolutionText
+        {
+            get { return solutionText; }
+            set
+            {
+                solutionText = value;
+                SolutionOutput.Text = solutionText;
             }
         }
 

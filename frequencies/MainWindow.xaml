@@ -31,7 +31,7 @@
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
                 </Viewbox>
                 <Viewbox Name="box5" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" Click="Button_Click"/>
                 </Viewbox>
                 <Viewbox Name="box6" MinHeight="80" MaxHeight="120">
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
@@ -41,7 +41,7 @@
                 </Viewbox>
             </StackPanel>
         </ScrollViewer>
-        
+
         <Frame x:Name="Main" NavigationUIVisibility="Hidden" x:FieldModifier="public"/>
     </Grid>
 
