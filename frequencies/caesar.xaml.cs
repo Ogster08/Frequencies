@@ -132,7 +132,6 @@ namespace frequencies
             CeaserSolver solver = new CeaserSolver(lettersText);
             solver.Solve();
             string solution = solver.Decryption;
-            int length = solution.Length;
             foreach (var item in nonLetters) {solution = solution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
             SolutionText = solution;
             KeyText = solver.Keys[0].ToString();

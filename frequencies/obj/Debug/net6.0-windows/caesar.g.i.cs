@@ -94,7 +94,7 @@ namespace frequencies {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/frequencies;component/caesar.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/frequencies;V1.0.0.0;component/caesar.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\caesar.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

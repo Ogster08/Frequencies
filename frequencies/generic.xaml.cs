@@ -114,7 +114,22 @@ namespace frequencies
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
+            string text = txtInput.Text;
+            string lettersText = string.Join("", text.Where(char.IsLetter).ToArray()).ToLower();
 
+            List<string[]> nonLetters = new();
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (!char.IsLetter(text[i]))
+                {
+                    string[] nonLetterIndex = { text[i].ToString(), i.ToString() };
+                    nonLetters.Add(nonLetterIndex);
+                }
+            }
+
+            string solution = "";
+            foreach (var item in nonLetters) { solution = solution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
         }
 
 
