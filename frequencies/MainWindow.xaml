@@ -19,25 +19,19 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <Viewbox Name="box1" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Affine" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
                 </Viewbox>
                 <Viewbox Name="box2" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Atbash" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
                 </Viewbox>
                 <Viewbox Name="box3" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Caesar" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
                 </Viewbox>
                 <Viewbox Name="box4" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Rail Fence" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
                 </Viewbox>
                 <Viewbox Name="box5" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" Click="Button_Click"/>
-                </Viewbox>
-                <Viewbox Name="box6" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
-                </Viewbox>
-                <Viewbox Name="box7" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Generic" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Vigenere" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Button_Click"/>
                 </Viewbox>
             </StackPanel>
         </ScrollViewer>

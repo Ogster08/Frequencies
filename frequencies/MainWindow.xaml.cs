@@ -23,7 +23,7 @@ namespace frequencies
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("caesar.xaml", UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("/caesar.xaml?key1=" + Cipher.VIGENERE, UriKind.RelativeOrAbsolute));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -34,8 +34,7 @@ namespace frequencies
             box3.MaxHeight = h / 7;
             box4.MaxHeight = h / 7;
             box5.MaxHeight = h / 7;
-            box6.MaxHeight = h / 7;
-            box7.MaxHeight = h / 7;
+
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -46,8 +45,6 @@ namespace frequencies
             box3.MaxHeight = h / 7;
             box4.MaxHeight = h / 7;
             box5.MaxHeight = h / 7;
-            box6.MaxHeight = h / 7;
-            box7.MaxHeight = h / 7;
         }
     }
 }

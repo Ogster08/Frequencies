@@ -2,19 +2,30 @@
 using System.Linq;
 using System;
 using System.Text;
+using System.Threading.Tasks.Sources;
+using System.IO;
 
 namespace frequencies
 {
-    internal class CeaserSolver
+    enum Cipher
+    {
+        AFFINE,
+        ATBASH,
+        CAESAR,
+        RAIL_FENCE,
+        VIGENERE
+    }
+
+    internal class CaesarSolver
     {
         private string text;
-        private int[] keys = new int[2];
+        private int[] key = new int[2];
         private string decryption;
 
-        public int[] Keys { get { return keys; } }
+        public int[] Key { get { return key; } }
         public string Decryption { get { return decryption; } }
 
-        public CeaserSolver(string Text)
+        public CaesarSolver(string Text)
         {
             text = Text;
         }
@@ -53,7 +64,7 @@ namespace frequencies
         }
 
         //solve the caesar by bruteforcing it and doing the chisquare test for each to check which is english
-        public void Solve()
+        public void solve()
         {
             //create an array for the chi square score for each possible caeser key 
             double[] scores = new double[26];
@@ -83,7 +94,7 @@ namespace frequencies
             scores.CopyTo(secondLowest, 0);
             secondLowest[Array.IndexOf(secondLowest, secondLowest.Min())] = 9999;
 
-            keys = new int[] { Array.IndexOf(scores, (secondLowest.Min() - scores.Min() < 15 && scores.Min() > 50) ? secondLowest.Min() : scores.Min()), Array.IndexOf(scores, (secondLowest.Min() - scores.Min() < 15 && scores.Min() > 50) ? scores.Min() : secondLowest.Min()) };// english language is weird - replacement of if else
+            key = new int[] { Array.IndexOf(scores, (secondLowest.Min() - scores.Min() < 15 && scores.Min() > 50) ? secondLowest.Min() : scores.Min()), Array.IndexOf(scores, (secondLowest.Min() - scores.Min() < 15 && scores.Min() > 50) ? scores.Min() : secondLowest.Min()) };// english language is weird - replacement of if else
 
             Decrypt();
         }
@@ -97,7 +108,7 @@ namespace frequencies
             //cycling through each character in the text to decrypt the character each time
             for (int i = 0; i < text.Length; i++)
             {
-                int x = (Convert.ToInt32(text[i]) - keys[0] - 97) % 26; //converting ascii of char to int and decrypting the number
+                int x = (Convert.ToInt32(text[i]) - key[0] - 97) % 26; //converting ascii of char to int and decrypting the number
                 if (x < 0) { x += 26; } //% will keep negative numbers negative but we need the numbers to be positive to convert back to a char
                 decryptionArray[i] = Convert.ToChar(x + 97).ToString(); //converting number to char and adding it to the decryption text
             }
@@ -110,8 +121,11 @@ namespace frequencies
     {
 
         private string text;
-        public string output = "";
-        public StringBuilder key = new StringBuilder();
+        private string decryption = "";
+        private StringBuilder key = new StringBuilder();
+
+        public string Decryption { get { return decryption; } }
+        public string Key { get { return key.ToString(); } }
 
         public vigenere(string text)
         {
@@ -131,7 +145,7 @@ namespace frequencies
                     float[] scores = new float[sequences.Length];
                     foreach (var item in sequences)
                     {
-                        Dictionary<string, int> frequencies = CeaserSolver.TextFrequency(item);
+                        Dictionary<string, int> frequencies = CaesarSolver.TextFrequency(item);
                         int[] occurances = new int[26];
                         for (int i = 0; i < occurances.Length; i++)
                         {
@@ -162,11 +176,11 @@ namespace frequencies
                 //looping through the text array to solve each caesar
                 for (int i = 0; i < keyLength; i++)
                 {
-                    CeaserSolver ceaserSolver = new(solveArray[i]);
-                    ceaserSolver.Solve();
+                    CaesarSolver ceaserSolver = new(solveArray[i]);
+                    ceaserSolver.solve();
 
                     //add possible keys and the decryprtion to the relavent arrays
-                    keysPos[i] = ceaserSolver.Keys;
+                    keysPos[i] = ceaserSolver.Key;
                     decryptionArray[i] = ceaserSolver.Decryption;
                 }
 
@@ -203,7 +217,7 @@ namespace frequencies
                 }
                 
                 foreach (var item in keys) { key.Append(Convert.ToChar(item + 97).ToString()); } //keys as letters
-                output = string.Join("", fullDecryption); //the decryption
+                decryption = string.Join("", fullDecryption); //the decryption
 
             //////////end of program//////////
         }
@@ -226,6 +240,235 @@ namespace frequencies
             //returning the array created
             return textArray;
 
+        }
+    }
+
+    internal class affine
+    {
+        private string text;
+        private string decryption = "";
+        private string key = "";
+
+        public string Decryption { get { return decryption; } }
+        public string Key { get { return key; } }
+
+        public affine(string Text)
+        {
+            text = Text;
+        }
+
+         public void solve()
+        {
+
+            List<string[]> possibleDecryptions = new();
+            for (int x = 1; x <= 25; x += 2)
+            {
+                for (int y = 0; y <= 25; y++)
+                {
+                    int x_inv = 0;
+                    for (int i = 0; i < 26; i++)
+                    {
+
+                        if (x * i % 26 == 1)
+                        {
+                            x_inv = i;
+                        }
+                    }
+
+                    List<string> decrypted = new();
+                    foreach (char letter in text)
+                    {
+                        int letterNumber = Convert.ToInt32(letter - 97) % 26;
+                        int numberDecrypted = ((letterNumber - y) * x_inv) % 26;
+                        while (numberDecrypted < 0) { numberDecrypted += 26; }
+                        decrypted.Add(Convert.ToChar(numberDecrypted + 97).ToString());
+                    }
+                    string[] ToAdd = { string.Join("", decrypted), $"{x}, {y}" };
+                    possibleDecryptions.Add(ToAdd);
+                }
+            }
+            double[] scores = new double[possibleDecryptions.Count];
+            for (int i = 0; i < possibleDecryptions.Count(); i++) { scores[i] = ChiSquareTest(possibleDecryptions[i][0]); }
+            decryption = string.Join("", possibleDecryptions[Array.IndexOf(scores, scores.Min())]);
+           
+
+            }
+
+        public static Dictionary<string, int> TextFrequency(string testText)
+        {
+            var characterCount = new Dictionary<string, int>() { { "a", 0 }, { "b", 0 }, { "c", 0 }, { "d", 0 }, { "e", 0 }, { "f", 0 }, { "g", 0 }, { "h", 0 }, { "i", 0 }, { "j", 0 }, { "k", 0 }, { "l", 0 }, { "m", 0 }, { "n", 0 }, { "o", 0 }, { "p", 0 }, { "q", 0 }, { "r", 0 }, { "s", 0 }, { "t", 0 }, { "u", 0 }, { "v", 0 }, { "w", 0 }, { "x", 0 }, { "y", 0 }, { "z", 0 } };
+
+            foreach (char c in testText) { characterCount[c.ToString()]++; }
+            return characterCount;
+        }
+
+        public static double ChiSquareTest(string testText)
+        {
+            var exspectedFrequencies = new Dictionary<string, double>() { { "e", 11.1607 }, { "a", 8.4966 }, { "r", 7.5809 }, { "i", 7.5448 }, { "o", 7.1635 }, { "t", 6.9509 }, { "n", 6.6544 }, { "s", 5.7351 }, { "l", 5.4893 }, { "c", 4.5388 }, { "u", 3.6308 }, { "d", 3.3844 }, { "p", 3.1671 }, { "m", 3.0129 }, { "h", 3.0034 }, { "g", 2.4705 }, { "b", 2.0720 }, { "f", 1.8121 }, { "y", 1.7779 }, { "w", 1.2899 }, { "k", 1.1016 }, { "v", 1.0074 }, { "x", 0.2902 }, { "z", 0.2722 }, { "j", 0.1965 }, { "q", 0.1962 } };
+            Dictionary<string, int> textFrequencies = TextFrequency(testText);
+
+            double score = 0;
+
+            foreach (string d in textFrequencies.Keys)
+            {
+                string s = d.ToLower();
+                double exspectedCount = exspectedFrequencies[s] / 100 * testText.Length;
+                score += Math.Pow(textFrequencies[s] - exspectedCount, 2) / exspectedCount;
+            }
+            return score;
+        }
+    }
+
+    internal class railFence
+    {
+        private string text;
+        private string decryption = "";
+        private string key = "";
+
+        public string Decryption { get { return decryption; } }
+        public string Key { get { return key; } }
+
+        public railFence(string Text) 
+        { 
+            text = Text;
+        }
+
+        public void solve()
+        {
+            List<Tuple<string, int>> possibleDecryptions = new();
+            for (int keyLength = 2; keyLength <= 15; keyLength++)
+            {
+                char[][] railFence = new char[keyLength][];
+                for (int i = 0; i < railFence.Length; i++) { railFence[i] = new char[text.Length]; }
+                int[] indexes = new int[] { -1, -1 };
+                bool countUp = true;
+                Tuple<int[], bool> nextSet;
+                for (int i = 0; i < text.Length; i++)
+                {
+                    nextSet = NextRailFence(indexes, keyLength, countUp);
+                    indexes = nextSet.Item1;
+                    countUp = nextSet.Item2;
+                    railFence[indexes[0]][indexes[1]] = Convert.ToChar("|");
+                }
+
+                int count = 0;
+                for (int x = 0; x < keyLength; x++)
+                {
+                    for (int y = 0; y < text.Length; y++)
+                    {
+                        if (railFence[x][y] == Convert.ToChar("|"))
+                        {
+                            railFence[x][y] = text[count++];
+                        }
+                    }
+                }
+
+                char[] possibleDecryption = new char[text.Length];
+                indexes = new int[] { -1, -1 };
+                countUp = true;
+                for (int i = 0; i < text.Length; i++)
+                {
+                    nextSet = NextRailFence(indexes, keyLength, countUp);
+                    indexes = nextSet.Item1;
+                    countUp = nextSet.Item2;
+                    possibleDecryption[i] = railFence[indexes[0]][indexes[1]];
+                }
+
+                Tuple<string, int> toAdd = new Tuple<string, int>(string.Join("", possibleDecryption), keyLength);
+                possibleDecryptions.Add(toAdd);
+            }
+
+            Ngrams ngrams = new("english_quadgrams.txt");
+            double[] scores = new double[possibleDecryptions.Count];
+
+            for (int i = 0; i < scores.Length; i++)
+            {
+                scores[i] = ngrams.score(string.Join("", possibleDecryptions[i].Item1.Where(char.IsLetter).ToArray()));
+            }
+
+            Tuple<string, int> decryptionKey = possibleDecryptions[Array.IndexOf(scores, scores.Max())];
+            decryption = decryptionKey.Item1;
+            key = decryptionKey.Item2.ToString();
+        }
+
+        public static Tuple<int[], bool> NextRailFence(int[] currentRailFence, int keyLength, bool countUp)
+        {
+            int[] railFence = new int[2];
+            if (countUp & (currentRailFence[0] + 1 == keyLength)) { countUp = false; }
+            if (!countUp & currentRailFence[0] == 0) { countUp = true; }
+            if (countUp) { railFence[0] = currentRailFence[0] + 1; } else { railFence[0] = currentRailFence[0] - 1; }
+            railFence[1] = currentRailFence[1] + 1;
+
+            return Tuple.Create(railFence, countUp);
+        }
+    }
+
+    internal class Ngrams
+    {
+        private Dictionary<string, double> ngrams_;
+        private int l_;
+        private double sum_;
+        private double floor_;
+
+        public Ngrams(string filename)
+        {
+            ngrams_ = new Dictionary<string, double>();
+            string[] lines = File.ReadAllLines(filename);
+
+            foreach (string item in lines)
+            {
+                string[] keyPair = item.Split(" ");
+                double value = double.Parse(keyPair[1]);
+                string key = keyPair[0];
+
+                ngrams_[key] = value;
+            }
+
+            l_ = lines[0].Split(" ")[0].Length;
+            sum_ = ngrams_.Values.ToArray().Sum();
+
+            foreach (string key in ngrams_.Keys.ToArray())
+            {
+                ngrams_[key] = Math.Log10(ngrams_[key] / sum_);
+            }
+
+            floor_ = Math.Log10(0.01 / sum_);
+        }
+
+        public double score(string text)
+        {
+            double score = 0;
+            for (int i = 0; i < text.Length - l_ + 1; i++)
+            {
+                if (ngrams_.ContainsKey(text.Substring(i, l_).ToUpper())) { score += ngrams_[text.Substring(i, l_).ToUpper()]; }
+                else { score += floor_; }
+            }
+
+            return score;
+        }
+    }
+
+    internal class atbash
+    {
+        private string text;
+        private StringBuilder decryption = new StringBuilder();
+
+        public string Decryption { get { return decryption.ToString(); } }
+
+        public atbash(string Text)
+        {
+            text = Text;
+        }
+
+        public void solve()
+        {
+            char[] key = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+            key = key.Reverse().ToArray();
+
+            foreach (char letter in text)
+            {
+                decryption.Append(key[letter - 97]);
+            }
         }
     }
 }

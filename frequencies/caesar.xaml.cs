@@ -28,7 +28,6 @@ namespace frequencies
             DataContext = this;
             InitializeComponent();
             PlaceHolder = "Enter cipher text: ";
-            KeyText = "Key: ";
             SolutionText = "Solution: ";
             PageName = this.GetType().Name;
             MenuBar.CurrentTool = PageName;
@@ -115,6 +114,8 @@ namespace frequencies
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
+            Cipher cipher = Cipher.VIGENERE;
+
             string text = txtInput.Text;
             string lettersText = string.Join("", text.Where(char.IsLetter).ToArray()).ToLower();
 
@@ -129,15 +130,53 @@ namespace frequencies
                 }
             }
 
-            CeaserSolver solver = new CeaserSolver(lettersText);
-            solver.Solve();
-            string solution = solver.Decryption;
-            foreach (var item in nonLetters) {solution = solution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
-            SolutionText = solution;
-            KeyText = solver.Keys[0].ToString();
+            switch (cipher)
+            {
+                case Cipher.AFFINE:
+                    affine affinesolver = new affine(lettersText);
+                    affinesolver.solve();
+                    string affinesolution = affinesolver.Decryption;
+                    foreach (var item in nonLetters) { affinesolution = affinesolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
+                    SolutionText = affinesolution;
+                    KeyText = affinesolver.Key;
+                    break;
 
+                case Cipher.ATBASH:
+                    atbash atbashsolver = new atbash(lettersText);
+                    atbashsolver.solve();
+                    string atbashsolution = atbashsolver.Decryption;
+                    foreach (var item in nonLetters) { atbashsolution = atbashsolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
+                    SolutionText = atbashsolution;
+                    break;
+
+                case Cipher.CAESAR:
+                    CaesarSolver caesarsolver = new CaesarSolver(lettersText);
+                    caesarsolver.solve();
+                    string caesarsolversolution = caesarsolver.Decryption;
+                    foreach (var item in nonLetters) { caesarsolversolution = caesarsolversolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
+                    SolutionText = caesarsolversolution;
+                    KeyText = caesarsolver.Key[0].ToString();
+                    break;
+
+                case Cipher.RAIL_FENCE:
+                    railFence railfencesolver = new railFence(text);
+                    railfencesolver.solve();
+                    SolutionText = railfencesolver.Decryption;
+                    KeyText = railfencesolver.Key;
+                    break;
+
+                case Cipher.VIGENERE:
+                    vigenere vigeneresolver = new vigenere(lettersText);
+                    vigeneresolver.solve();
+                    string vigeneresolution = vigeneresolver.Decryption;
+                    foreach (var item in nonLetters) { vigeneresolution = vigeneresolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
+                    SolutionText = vigeneresolution;
+                    KeyText = vigeneresolver.Key;
+                    break;
+
+                default:
+                    break;
+            }
         }
-
-
     }
 }
