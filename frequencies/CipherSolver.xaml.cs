@@ -21,9 +21,9 @@ namespace frequencies
     /// <summary>
     /// Interaction logic for generic.xaml
     /// </summary>
-    public partial class caesar : Page
+    public partial class CipherSolver : Page
     {
-        public caesar()
+        public CipherSolver()
         {
             DataContext = this;
             InitializeComponent();

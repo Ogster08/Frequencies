@@ -224,7 +224,6 @@ namespace frequencies
                 foreach (var item in keys) { key.Append(Convert.ToChar(item + 97).ToString()); } //keys as letters
                 decryption = string.Join("", fullDecryption); //the decryption
 
-            //////////end of program//////////
         }
 
         //turns the vigenere cipher into an array of caesar ciphers
@@ -294,7 +293,9 @@ namespace frequencies
             }
             double[] scores = new double[possibleDecryptions.Count];
             for (int i = 0; i < possibleDecryptions.Count(); i++) { scores[i] = ChiSquareTest(possibleDecryptions[i][0]); }
-            decryption = string.Join("", possibleDecryptions[Array.IndexOf(scores, scores.Min())]);
+            string decryptionAndKey = string.Join("", possibleDecryptions[Array.IndexOf(scores, scores.Min())]);
+            decryption = decryptionAndKey.Substring(0, decryptionAndKey.Length - 4);
+            key = decryptionAndKey.Substring(decryptionAndKey.Length - 4);
            
 
             }

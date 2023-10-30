@@ -21,35 +21,35 @@ namespace frequencies
         private void Affine(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
             variables.cipher = Cipher.AFFINE;
         }
 
         private void Atbash(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
             variables.cipher = Cipher.ATBASH;
         }
 
         private void Caesar(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
             variables.cipher = Cipher.CAESAR;
         }
 
         private void Rail_Fence(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
             variables.cipher = Cipher.RAIL_FENCE;
         }
 
         private void Vigenere(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
             variables.cipher = Cipher.VIGENERE;
         }
 

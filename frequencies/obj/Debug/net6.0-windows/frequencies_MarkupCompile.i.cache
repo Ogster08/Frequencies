@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\olive\Documents\GitHub\Frequencies\Frequencies\App.xaml
-5-798043409
+4147179314
 2496483902
-10-1326346285
+9266402138
 194618410957
-caesar.xaml;generic.xaml;MainWindow.xaml;View\UserControls\clearableTextBox.xaml;View\UserControls\MenuBar.xaml;
+CipherSolver.xaml;MainWindow.xaml;View\UserControls\clearableTextBox.xaml;View\UserControls\MenuBar.xaml;
 
-True
+False
 

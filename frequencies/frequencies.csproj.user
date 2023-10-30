@@ -7,10 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="caesar.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="generic.xaml.cs">
+    <Compile Update="CipherSolver.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\clearableTextBox.xaml.cs">
@@ -21,10 +18,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="caesar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="generic.xaml">
+    <Page Update="CipherSolver.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
