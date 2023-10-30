@@ -30,7 +30,7 @@ namespace frequencies
             KeyText = "Key: ";
             SolutionText = "Solution: ";
             PageName = this.GetType().Name;
-            MenuBar.CurrentTool = PageName;
+            //MenuBar.CurrentTool = PageName;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

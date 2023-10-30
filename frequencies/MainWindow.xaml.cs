@@ -16,14 +16,41 @@ namespace frequencies
         {
             DataContext = this;
             InitializeComponent();
-            
         }
-        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Affine(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
-            frame.Navigate(new Uri("/caesar.xaml?key1=" + Cipher.VIGENERE, UriKind.RelativeOrAbsolute));
+            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            variables.cipher = Cipher.AFFINE;
+        }
+
+        private void Atbash(object sender, RoutedEventArgs e)
+        {
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            variables.cipher = Cipher.ATBASH;
+        }
+
+        private void Caesar(object sender, RoutedEventArgs e)
+        {
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            variables.cipher = Cipher.CAESAR;
+        }
+
+        private void Rail_Fence(object sender, RoutedEventArgs e)
+        {
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            variables.cipher = Cipher.RAIL_FENCE;
+        }
+
+        private void Vigenere(object sender, RoutedEventArgs e)
+        {
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("/caesar.xaml?key1=", UriKind.RelativeOrAbsolute));
+            variables.cipher = Cipher.VIGENERE;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

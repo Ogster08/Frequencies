@@ -28,9 +28,6 @@ namespace frequencies
             DataContext = this;
             InitializeComponent();
             PlaceHolder = "Enter cipher text: ";
-            SolutionText = "Solution: ";
-            PageName = this.GetType().Name;
-            MenuBar.CurrentTool = PageName;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -114,8 +111,6 @@ namespace frequencies
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            Cipher cipher = Cipher.VIGENERE;
-
             string text = txtInput.Text;
             string lettersText = string.Join("", text.Where(char.IsLetter).ToArray()).ToLower();
 
@@ -130,7 +125,7 @@ namespace frequencies
                 }
             }
 
-            switch (cipher)
+            switch (variables.cipher)
             {
                 case Cipher.AFFINE:
                     affine affinesolver = new affine(lettersText);

@@ -7,6 +7,11 @@ using System.IO;
 
 namespace frequencies
 {
+    internal class variables
+    {
+        static public Cipher cipher;
+    }
+
     enum Cipher
     {
         AFFINE,
