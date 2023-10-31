@@ -80,7 +80,7 @@
                         </Viewbox>
                         <Viewbox Grid.Row="1" Margin="5">
                             <Grid Name="SolutionTextGrid" Width="1920">
-                                <TextBlock HorizontalAlignment="Center" Name="SolutionOutput" Foreground="#FFC745" FontSize="24" Text="{Binding SolutionText}" TextWrapping="Wrap"/>
+                                <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" HorizontalAlignment="Center" Name="SolutionOutput" Foreground="#FFC745" FontSize="24" Text="{Binding SolutionText, Mode=OneWay}" TextWrapping="Wrap"/>
                             </Grid>
                         </Viewbox>
                     </Grid>
