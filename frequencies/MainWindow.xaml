@@ -31,6 +31,9 @@
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Rail Fence" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Rail_Fence"/>
                 </Viewbox>
                 <Viewbox Name="box5" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Substitution" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Substituion"/>
+                </Viewbox>
+                <Viewbox Name="box6" MinHeight="80" MaxHeight="120">
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Vigenere" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Vigenere"/>
                 </Viewbox>
             </StackPanel>

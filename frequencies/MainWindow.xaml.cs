@@ -22,7 +22,7 @@ namespace frequencies
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.SUBSTITUTION;
+            variables.cipher = Cipher.AFFINE;
         }
 
         private void Atbash(object sender, RoutedEventArgs e)
@@ -46,6 +46,13 @@ namespace frequencies
             variables.cipher = Cipher.RAIL_FENCE;
         }
 
+        private void Substituion(object sender, RoutedEventArgs e)
+        {
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
+            variables.cipher = Cipher.SUBSTITUTION;
+        }
+
         private void Vigenere(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
@@ -61,6 +68,7 @@ namespace frequencies
             box3.MaxHeight = h / 7;
             box4.MaxHeight = h / 7;
             box5.MaxHeight = h / 7;
+            box6.MaxHeight = h / 7;
 
         }
 
@@ -72,6 +80,7 @@ namespace frequencies
             box3.MaxHeight = h / 7;
             box4.MaxHeight = h / 7;
             box5.MaxHeight = h / 7;
+            box6.MaxHeight = h / 7;
         }
     }
 }

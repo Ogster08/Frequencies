@@ -23,6 +23,8 @@ namespace frequencies
     /// </summary>
     public partial class CipherSolver : Page
     {
+        Ngrams ngrams = new("english_quadgrams.txt");
+
         public CipherSolver()
         {
             DataContext = this;
@@ -161,7 +163,7 @@ namespace frequencies
                     break;
 
                 case Cipher.SUBSTITUTION:
-                    substitutian substitutiansolver = new substitutian(lettersText);
+                    substitutian substitutiansolver = new substitutian(lettersText, ngrams);
                     substitutiansolver.solve();
                     string substitutionsolution = substitutiansolver.Decryption;
                     foreach (var item in nonLetters) { substitutionsolution = substitutionsolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }

@@ -412,8 +412,6 @@ namespace frequencies
 
     internal class Ngrams
     {
-        //private Dictionary<string, double> ngrams_;
-        //private Dictionary<int, double> ngramsInt_ = [];
         private double[] scoresUsingInt_;
         private int l_;
         private double sum_ = 0;
@@ -426,7 +424,6 @@ namespace frequencies
 
             scoresUsingInt_ = new double[(int)Math.Pow(32, l_)];
             Array.Fill(scoresUsingInt_, 0.01);
-            //ngrams_ = new Dictionary<string, double>();
             
             foreach (string item in lines)
             {
@@ -444,10 +441,6 @@ namespace frequencies
             }
 
             floor_ = Math.Log10(0.01 / sum_);
-
-
-            //for (int i = 0; i < scoresUsingInt_.Length; i++) scoresUsingInt_[i] = floor_;
-            //foreach (var kpv in ngramsInt_) scoresUsingInt_[kpv.Key] = kpv.Value;
         }
 
         private static int EncodeLower(ReadOnlySpan<char> gram)
@@ -517,6 +510,7 @@ namespace frequencies
         private string text;
         private string decryption = "";
         private string key = "";
+        private Ngrams ngrams;
 
         public string Decryption { get { return decryption; } }
         public string Key { get { return key; } }
@@ -524,6 +518,14 @@ namespace frequencies
         public substitutian(string Text)
         {
             text = Text;
+            ngrams = new("english_quadgrams.txt");
+
+        }
+
+        public substitutian(string Text, Ngrams ngrams)
+        {
+            text = Text;
+            this.ngrams = ngrams;
         }
 
         public void solve()
@@ -539,7 +541,6 @@ namespace frequencies
             char[] possibleKey = [.. bestKey];
             
             Random rnd = new Random();
-            Ngrams ngrams = new("english_quadgrams.txt");
             System.Diagnostics.Debug.WriteLine("Finished initialising");
 
             double score;
@@ -582,9 +583,11 @@ namespace frequencies
                 if (Improved) repeats = 0; 
                 else repeats++;
             }
+            char[] oppositeKey = new char[26];
+            for (int i = 0; i < 26; i++) { oppositeKey[bestKey[i] - 'a'] = Convert.ToChar(i + 'a'); }
 
             this.decryption = new string(bestDecryption);
-            this.key = new string(bestKey);
+            this.key = new string(oppositeKey);
 
         }
     }
