@@ -18,6 +18,7 @@ namespace frequencies
         ATBASH,
         CAESAR,
         RAIL_FENCE,
+        SUBSTITUTION,
         VIGENERE
     }
 
@@ -139,90 +140,90 @@ namespace frequencies
 
         public void solve()
         {
-                //////////get key length//////////
-                float[] keyScores = new float[14];
+            //////////get key length//////////
+            float[] keyScores = new float[14];
 
-                //try key lengths from 2 to 15
-                for (int n = 2; n <= 15; n++)
+            //try key lengths from 2 to 15
+            for (int n = 2; n <= 15; n++)
+            {
+                //index of coincidence calculation
+                string[] sequences = TextToArray(text, n);
+                float[] scores = new float[sequences.Length];
+                foreach (var item in sequences)
                 {
-                    //index of coincidence calculation
-                    string[] sequences = TextToArray(text, n);
-                    float[] scores = new float[sequences.Length];
-                    foreach (var item in sequences)
+                    Dictionary<string, int> frequencies = CaesarSolver.TextFrequency(item);
+                    int[] occurances = new int[26];
+                    for (int i = 0; i < occurances.Length; i++)
                     {
-                        Dictionary<string, int> frequencies = CaesarSolver.TextFrequency(item);
-                        int[] occurances = new int[26];
-                        for (int i = 0; i < occurances.Length; i++)
-                        {
-                            int f = frequencies.Values.ToArray()[i];
-                            occurances[i] = f * (f - 1);
-                        }
-                        float occurancesSum = occurances.Sum();
-                        float lengthCalc = item.Length * (item.Length - 1);
-                        scores[Array.IndexOf(sequences, item)] = occurancesSum / lengthCalc;
+                        int f = frequencies.Values.ToArray()[i];
+                        occurances[i] = f * (f - 1);
                     }
-                    //add to array
-                    keyScores[n - 2] = scores.Sum() / scores.Length;
+                    float occurancesSum = occurances.Sum();
+                    float lengthCalc = item.Length * (item.Length - 1);
+                    scores[Array.IndexOf(sequences, item)] = occurancesSum / lengthCalc;
                 }
+                //add to array
+                keyScores[n - 2] = scores.Sum() / scores.Length;
+            }
 
-                List<float> possibleKeys = new();
-                foreach (var key in keyScores) { if (key >= 0.055) { possibleKeys.Add(key + Array.IndexOf(keyScores, key) + 2); } }
-                int keyLength = Array.IndexOf(keyScores, keyScores.Max()) + 2;
+            List<float> possibleKeys = new();
+            foreach (var key in keyScores) { if (key >= 0.055) { possibleKeys.Add(key + Array.IndexOf(keyScores, key) + 2); } }
+            int keyLength = Array.IndexOf(keyScores, keyScores.Max()) + 2;
 
-                //////////list text//////////
+            //////////list text//////////
 
-                string[] solveArray = TextToArray(text, keyLength);
+            string[] solveArray = TextToArray(text, keyLength);
 
-                //////////solve cipthers//////////
-                //create arrays for the possible keys and  decryption
-                int[][] keysPos = new int[keyLength][]; //each part of array will contain 2 possible keys for that part of the cipher
-                string[] decryptionArray = new string[keyLength];
+            //////////solve cipthers//////////
+            //create arrays for the possible keys and  decryption
+            int[][] keysPos = new int[keyLength][]; //each part of array will contain 2 possible keys for that part of the cipher
+            string[] decryptionArray = new string[keyLength];
 
-                //looping through the text array to solve each caesar
-                for (int i = 0; i < keyLength; i++)
+            //looping through the text array to solve each caesar
+            for (int i = 0; i < keyLength; i++)
+            {
+                CaesarSolver ceaserSolver = new(solveArray[i]);
+                ceaserSolver.solve();
+
+                //add possible keys and the decryprtion to the relavent arrays
+                keysPos[i] = ceaserSolver.Key;
+                decryptionArray[i] = ceaserSolver.Decryption;
+            }
+
+            //creating every permutation of each possible key for each part of the cipher
+            int[][] keysPermutations = new int[Convert.ToInt32(Math.Pow(2, keyLength))][];
+            for (int i = 0; i <= ~(-1 << keyLength); i++)
+            {
+                //using binary indexes for permutations
+                string s = Convert.ToString(i, 2).PadLeft(keyLength, '0');
+                int[] permutation = new int[s.Length];
+                for (int x = 0; x < s.Length; x++)
                 {
-                    CaesarSolver ceaserSolver = new(solveArray[i]);
-                    ceaserSolver.solve();
-
-                    //add possible keys and the decryprtion to the relavent arrays
-                    keysPos[i] = ceaserSolver.Key;
-                    decryptionArray[i] = ceaserSolver.Decryption;
+                    int index = int.Parse(s[x].ToString());
+                    permutation[x] = keysPos[x][index];
                 }
+                keysPermutations[i] = permutation;
+            }
 
-                //creating every permutation of each possible key for each part of the cipher
-                int[][] keysPermutations = new int[Convert.ToInt32(Math.Pow(2, keyLength))][];
-                for (int i = 0; i <= ~(-1 << keyLength); i++)
+            //setting the keys that are the most likely to be right
+            int[] keys = new int[keyLength];
+            for (int i = 0; i < keysPos.Length; i++) { keys[i] = keysPos[i][0]; }
+
+            ////////combine the decryption arrays together e.g. 1,4,7  2,5,8  3,6,9  => 1,2,3,4,5,6,7,8,9////////
+            List<string> fullDecryption = new();
+
+            for (int i = 0; i < decryptionArray[0].Length; i++)
+            {
+                foreach (var item in decryptionArray)
                 {
-                    //using binary indexes for permutations
-                    string s = Convert.ToString(i, 2).PadLeft(keyLength, '0');
-                    int[] permutation = new int[s.Length];
-                    for (int x = 0; x < s.Length; x++)
-                    {
-                        int index = int.Parse(s[x].ToString());
-                        permutation[x] = keysPos[x][index];
-                    }
-                    keysPermutations[i] = permutation;
+                    //try needed because not all decryption parts are the same size
+                    try { fullDecryption.Add(item[i].ToString()); }
+                    catch (IndexOutOfRangeException) { break; }
                 }
+            }
 
-                //setting the keys that are the most likely to be right
-                int[] keys = new int[keyLength];
-                for (int i = 0; i < keysPos.Length; i++) { keys[i] = keysPos[i][0]; }
-
-                ////////combine the decryption arrays together e.g. 1,4,7  2,5,8  3,6,9  => 1,2,3,4,5,6,7,8,9////////
-                List<string> fullDecryption = new();
-
-                for (int i = 0; i < decryptionArray[0].Length; i++)
-                {
-                    foreach (var item in decryptionArray)
-                    {
-                        //try needed because not all decryption parts are the same size
-                        try { fullDecryption.Add(item[i].ToString()); }
-                        catch (IndexOutOfRangeException) { break; }
-                    }
-                }
-                
-                foreach (var item in keys) { key.Append(Convert.ToChar(item + 97).ToString()); } //keys as letters
-                decryption = string.Join("", fullDecryption); //the decryption
+            foreach (var item in keys) { key.Append(Convert.ToChar(item + 97).ToString()); } //keys as letters
+            decryption = string.Join("", fullDecryption); //the decryption
 
         }
 
@@ -261,7 +262,7 @@ namespace frequencies
             text = Text;
         }
 
-         public void solve()
+        public void solve()
         {
 
             List<string[]> possibleDecryptions = new();
@@ -296,9 +297,9 @@ namespace frequencies
             string decryptionAndKey = string.Join("", possibleDecryptions[Array.IndexOf(scores, scores.Min())]);
             decryption = decryptionAndKey.Substring(0, decryptionAndKey.Length - 4);
             key = decryptionAndKey.Substring(decryptionAndKey.Length - 4);
-           
 
-            }
+
+        }
 
         public static Dictionary<string, int> TextFrequency(string testText)
         {
@@ -334,8 +335,8 @@ namespace frequencies
         public string Decryption { get { return decryption; } }
         public string Key { get { return key; } }
 
-        public railFence(string Text) 
-        { 
+        public railFence(string Text)
+        {
             text = Text;
         }
 
@@ -411,47 +412,80 @@ namespace frequencies
 
     internal class Ngrams
     {
-        private Dictionary<string, double> ngrams_;
+        //private Dictionary<string, double> ngrams_;
+        //private Dictionary<int, double> ngramsInt_ = [];
+        private double[] scoresUsingInt_;
         private int l_;
-        private double sum_;
+        private double sum_ = 0;
         private double floor_;
 
         public Ngrams(string filename)
         {
-            ngrams_ = new Dictionary<string, double>();
             string[] lines = File.ReadAllLines(filename);
+            l_ = lines[0].Split(" ")[0].Length;
 
+            scoresUsingInt_ = new double[(int)Math.Pow(32, l_)];
+            Array.Fill(scoresUsingInt_, 0.01);
+            //ngrams_ = new Dictionary<string, double>();
+            
             foreach (string item in lines)
             {
                 string[] keyPair = item.Split(" ");
                 double value = double.Parse(keyPair[1]);
                 string key = keyPair[0];
 
-                ngrams_[key] = value;
+                scoresUsingInt_[EncodeUpper(key)] = value;
+                sum_ += value;
             }
 
-            l_ = lines[0].Split(" ")[0].Length;
-            sum_ = ngrams_.Values.ToArray().Sum();
-
-            foreach (string key in ngrams_.Keys.ToArray())
+            for (int i = 0; i < scoresUsingInt_.Length; i++)
             {
-                ngrams_[key] = Math.Log10(ngrams_[key] / sum_);
+                scoresUsingInt_[i] = Math.Log10(scoresUsingInt_[i] / sum_);
             }
 
             floor_ = Math.Log10(0.01 / sum_);
+
+
+            //for (int i = 0; i < scoresUsingInt_.Length; i++) scoresUsingInt_[i] = floor_;
+            //foreach (var kpv in ngramsInt_) scoresUsingInt_[kpv.Key] = kpv.Value;
         }
 
-        public double score(string text)
+        private static int EncodeLower(ReadOnlySpan<char> gram)
+        {
+            int value = 0;
+            foreach (char c in gram)
+            {
+                value = (value << 5) | (c - 'a');
+            }
+            return value;
+        }
+        private static int EncodeUpper(ReadOnlySpan<char> gram)
+        {
+            int value = 0;
+            foreach (char c in gram)
+            {
+                value = (value << 5) | (c - 'A');
+            }
+            return value;
+        }
+
+        public double score(ReadOnlySpan<char> text)
         {
             double score = 0;
-            for (int i = 0; i < text.Length - l_ + 1; i++)
-            {
-                if (ngrams_.ContainsKey(text.Substring(i, l_).ToUpper())) { score += ngrams_[text.Substring(i, l_).ToUpper()]; }
-                else { score += floor_; }
-            }
 
+            int encoded = EncodeLower(text.Slice(0, l_));
+            score += scoresUsingInt_[encoded];
+
+            int mask = (1 << (5 * (l_ - 1))) - 1;
+
+            for (int i = l_; i < text.Length - l_ + 1; i++)
+            {
+                encoded = ((encoded & mask) << 5) | (text[i] - 'a');
+                score += scoresUsingInt_[encoded];
+            }
             return score;
         }
+
     }
 
     internal class atbash
@@ -475,6 +509,83 @@ namespace frequencies
             {
                 decryption.Append(key[letter - 97]);
             }
+        }
+    }
+
+    internal class substitutian
+    {
+        private string text;
+        private string decryption = "";
+        private string key = "";
+
+        public string Decryption { get { return decryption; } }
+        public string Key { get { return key; } }
+
+        public substitutian(string Text)
+        {
+            text = Text;
+        }
+
+        public void solve()
+        {
+            char[] alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+            int n = 10_000;
+            int r = 3;
+            int repeats = 0;
+            
+            char[] bestDecryption = text.ToCharArray();
+            char[] possibleDecryption = new char[text.Length];
+            char[] bestKey = [.. alphabet];
+            char[] possibleKey = [.. bestKey];
+            
+            Random rnd = new Random();
+            Ngrams ngrams = new("english_quadgrams.txt");
+            System.Diagnostics.Debug.WriteLine("Finished initialising");
+
+            double score;
+            double possibleScore = -9999999999;
+            score = ngrams.score(text);
+
+            
+
+            while (repeats < r)
+            {
+                bool Improved = false;
+
+                for (int i = 0; i < n; i++)
+                {
+
+                    int a = rnd.Next(26);
+                    int b = rnd.Next(26);
+
+                    (possibleKey[a], possibleKey[b]) = (possibleKey[b], possibleKey[a]);
+
+                    for (int index = 0; index < text.Length; index++)
+                    {
+                        possibleDecryption[index] = possibleKey[text[index] - 'a'];
+                    }
+
+                    possibleScore = ngrams.score(possibleDecryption);
+                    if (possibleScore > score)
+                    {
+                        score = possibleScore;
+                        Array.Copy(possibleDecryption, bestDecryption, text.Length);
+                        Array.Copy(possibleKey, bestKey, 26);
+                        Improved = true;
+                    }
+                    else
+                    {
+                        (possibleKey[a], possibleKey[b]) = (possibleKey[b], possibleKey[a]);
+                    }
+                }
+
+                if (Improved) repeats = 0; 
+                else repeats++;
+            }
+
+            this.decryption = new string(bestDecryption);
+            this.key = new string(bestKey);
+
         }
     }
 }

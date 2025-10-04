@@ -22,7 +22,7 @@ namespace frequencies
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.AFFINE;
+            variables.cipher = Cipher.SUBSTITUTION;
         }
 
         private void Atbash(object sender, RoutedEventArgs e)

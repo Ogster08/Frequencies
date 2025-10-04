@@ -160,6 +160,15 @@ namespace frequencies
                     KeyText = railfencesolver.Key;
                     break;
 
+                case Cipher.SUBSTITUTION:
+                    substitutian substitutiansolver = new substitutian(lettersText);
+                    substitutiansolver.solve();
+                    string substitutionsolution = substitutiansolver.Decryption;
+                    foreach (var item in nonLetters) { substitutionsolution = substitutionsolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
+                    SolutionText = substitutionsolution;
+                    KeyText = substitutiansolver.Key;
+                    break;
+
                 case Cipher.VIGENERE:
                     vigenere vigeneresolver = new vigenere(lettersText);
                     vigeneresolver.solve();

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("frequencies")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b7892f133568f95dc120824a26520dc27669aa1b")]
 [assembly: System.Reflection.AssemblyProductAttribute("frequencies")]
 [assembly: System.Reflection.AssemblyTitleAttribute("frequencies")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

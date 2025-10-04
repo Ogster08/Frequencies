@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\olive\Documents\GitHub\Frequencies\frequencies\obj\Debug\net6.0-windows\
+C:\Users\olive\source\repos\Ogster08\Frequencies\frequencies\obj\Debug\net6.0-windows\
 frequencies
 none
 false
-TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\olive\Documents\GitHub\Frequencies\frequencies\App.xaml
+TRACE;DEBUG;NET;NET6_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+C:\Users\olive\source\repos\Ogster08\Frequencies\frequencies\App.xaml
 4147179314
 2496483902
 7-49285542
-194618410957
+194178300874
 CipherSolver.xaml;MainWindow.xaml;View\UserControls\clearableTextBox.xaml;View\UserControls\MenuBar.xaml;
 
 False

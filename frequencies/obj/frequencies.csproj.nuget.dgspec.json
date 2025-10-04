@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\olive\\Documents\\GitHub\\Frequencies\\frequencies\\frequencies.csproj": {}
+    "C:\\Users\\olive\\source\\repos\\Ogster08\\Frequencies\\frequencies\\frequencies.csproj": {}
   },
   "projects": {
-    "C:\\Users\\olive\\Documents\\GitHub\\Frequencies\\frequencies\\frequencies.csproj": {
+    "C:\\Users\\olive\\source\\repos\\Ogster08\\Frequencies\\frequencies\\frequencies.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\olive\\Documents\\GitHub\\Frequencies\\frequencies\\frequencies.csproj",
+        "projectUniqueName": "C:\\Users\\olive\\source\\repos\\Ogster08\\Frequencies\\frequencies\\frequencies.csproj",
         "projectName": "frequencies",
-        "projectPath": "C:\\Users\\olive\\Documents\\GitHub\\Frequencies\\frequencies\\frequencies.csproj",
+        "projectPath": "C:\\Users\\olive\\source\\repos\\Ogster08\\Frequencies\\frequencies\\frequencies.csproj",
         "packagesPath": "C:\\Users\\olive\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\olive\\Documents\\GitHub\\Frequencies\\frequencies\\obj\\",
+        "outputPath": "C:\\Users\\olive\\source\\repos\\Ogster08\\Frequencies\\frequencies\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,15 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows"
+          "net8.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0-windows7.0": {
-            "targetAlias": "net6.0-windows",
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
             "projectReferences": {}
           }
         },
@@ -38,11 +38,17 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net6.0-windows7.0": {
-          "targetAlias": "net6.0-windows",
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
           "imports": [
             "net461",
             "net462",
@@ -62,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
