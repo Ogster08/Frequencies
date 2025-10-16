@@ -568,6 +568,17 @@ namespace frequencies
             
             Random rnd = new Random();
 
+            int[][] charPositions = new int[26][];
+            for (int i = 0; i < 26; i++) 
+            {
+                List<int> positions = new();
+                for (int j = 0; j < text.Length; j++)
+                {
+                    if (textBytes[j] == i) { positions.Add(j); }
+                }
+                charPositions[i] = positions.ToArray();
+            }
+
 
             double CurrentScore;
             double possibleScore = -9999999999;
@@ -580,19 +591,19 @@ namespace frequencies
             {
                 possibleKey = [.. alphabet];
                 CurrentScore = ngrams.score(textBytes);
+                Array.Copy(textBytes, possibleDecryption, text.Length);
 
                 for (int i = 0; i < n; i++)
                 {
 
                     int a = rnd.Next(26);
                     int b = rnd.Next(26);
+                    if (a == b) continue;
 
                     (possibleKey[a], possibleKey[b]) = (possibleKey[b], possibleKey[a]);
 
-                    for (int index = 0; index < text.Length; index++)
-                    {
-                        possibleDecryption[index] = possibleKey[textBytes[index]];
-                    }
+                    foreach (int pos in charPositions[a]) { possibleDecryption[pos] = possibleKey[a]; }
+                    foreach (int pos in charPositions[b]) { possibleDecryption[pos] = possibleKey[b]; }
 
                     possibleScore = ngrams.score(possibleDecryption);
                     if (possibleScore > CurrentScore)
