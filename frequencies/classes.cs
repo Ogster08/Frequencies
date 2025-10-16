@@ -488,7 +488,7 @@ namespace frequencies
 
             for (int i = 0; i < l_; i++)
             {
-                encoded = ((encoded & mask) << 5) | text[i];
+                encoded = (encoded << 5) | text[i];
             }
             score += scoresUsingInt_[encoded];
 
@@ -551,17 +551,20 @@ namespace frequencies
 
         public void solve()
         {
-            char[] alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-            int n = 2_000;
+            Byte[] textBytes = new Byte[text.Length];
+            for (int i = 0; i < text.Length; i++) { textBytes[i] = (Byte)(text[i] - 'a'); }
+            Byte[] alphabet = new byte[26];
+            for (Byte i = 0; i < 26; i++) { alphabet[i] = i; }
+            int n = 2_500;
             int r = 3;
             int repeats = 0;
-            
+
             char[] bestDecryption = text.ToCharArray();
-            char[] CurrentDecryption = new char[text.Length];
-            char[] possibleDecryption = new char[text.Length];
-            char[] bestKey = [.. alphabet];
-            char[] currentKey = [.. bestKey];
-            char[] possibleKey = [.. bestKey];
+            Byte[] CurrentDecryption = new Byte[text.Length];
+            Byte[] possibleDecryption = new Byte[text.Length];
+            Byte[] bestKey = [.. alphabet];
+            Byte[] currentKey = [.. bestKey];
+            Byte[] possibleKey = [.. bestKey];
             
             Random rnd = new Random();
 
@@ -576,7 +579,7 @@ namespace frequencies
             while (repeats < r)
             {
                 possibleKey = [.. alphabet];
-                CurrentScore = ngrams.score(text);
+                CurrentScore = ngrams.score(textBytes);
 
                 for (int i = 0; i < n; i++)
                 {
@@ -588,7 +591,7 @@ namespace frequencies
 
                     for (int index = 0; index < text.Length; index++)
                     {
-                        possibleDecryption[index] = possibleKey[text[index] - 'a'];
+                        possibleDecryption[index] = possibleKey[textBytes[index]];
                     }
 
                     possibleScore = ngrams.score(possibleDecryption);
@@ -618,11 +621,11 @@ namespace frequencies
                 } 
             }
             char[] oppositeKey = new char[26];
-            for (int i = 0; i < 26; i++) { oppositeKey[bestKey[i] - 'a'] = Convert.ToChar(i + 'a'); }
+            for (int i = 0; i < 26; i++) { oppositeKey[bestKey[i]] = Convert.ToChar(i + 'a'); }
 
             for (int index = 0; index < text.Length; index++)
             {
-                bestDecryption[index] = bestKey[text[index] - 'a'];
+                bestDecryption[index] = (char)(bestKey[textBytes[index]] + 'a');
             }
 
             this.decryption = new string(bestDecryption);
