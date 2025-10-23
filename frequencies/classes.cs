@@ -391,7 +391,7 @@ namespace frequencies
 
             for (int i = 0; i < scores.Length; i++)
             {
-                scores[i] = ngrams.score(string.Join("", possibleDecryptions[i].Item1.Where(char.IsLetter).ToArray()));
+                scores[i] = ngrams.score(string.Join("", possibleDecryptions[i].Item1.Where(char.IsLetter).Select(c => char.ToLower(c)).ToArray()));
             }
 
             Tuple<string, int> decryptionKey = possibleDecryptions[Array.IndexOf(scores, scores.Max())];
@@ -414,6 +414,7 @@ namespace frequencies
     internal class Ngrams
     {
         private double[] scoresUsingInt_;
+        private short[] shortScoresUsingInt_;
         private int l_;
         private double sum_ = 0;
         private double floor_;
@@ -442,6 +443,9 @@ namespace frequencies
             }
 
             floor_ = Math.Log10(0.01 / sum_);
+
+            double absMax = scoresUsingInt_.Max(d => Math.Abs(d));
+            shortScoresUsingInt_ = scoresUsingInt_.Select(d => (short)(d / absMax * short.MaxValue)).ToArray();
         }
 
         private static int EncodeLower(ReadOnlySpan<char> gram)
@@ -551,96 +555,130 @@ namespace frequencies
 
         public void solve()
         {
-            Byte[] textBytes = new Byte[text.Length];
-            for (int i = 0; i < text.Length; i++) { textBytes[i] = (Byte)(text[i] - 'a'); }
-            Byte[] alphabet = new byte[26];
-            for (Byte i = 0; i < 26; i++) { alphabet[i] = i; }
-            int n = 2_500;
-            int r = 3;
-            int repeats = 0;
+            int total = 0;
+            for (int iteractions = 0; iteractions < 1; iteractions++)
+            {
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
 
-            char[] bestDecryption = text.ToCharArray();
-            Byte[] CurrentDecryption = new Byte[text.Length];
-            Byte[] possibleDecryption = new Byte[text.Length];
-            Byte[] bestKey = [.. alphabet];
-            Byte[] currentKey = [.. bestKey];
-            Byte[] possibleKey = [.. bestKey];
+                Byte[] textBytes = new Byte[text.Length];
+                for (int i = 0; i < text.Length; i++) { textBytes[i] = (Byte)(text[i] - 'a'); }
+                Byte[] alphabet = new byte[26];
+                for (Byte i = 0; i < 26; i++) { alphabet[i] = i; }
+                int n = 50_000;
+                int r = 3;
+                int repeats = 0;
+                int x = 0;
+
+                char[] bestDecryption = text.ToCharArray();
+                Byte[] CurrentDecryption = new Byte[text.Length];
+                Byte[] possibleDecryption = new Byte[text.Length];
+                Byte[] bestKey = [.. alphabet];
+                Byte[] currentKey = [.. bestKey];
+                Byte[] possibleKey = [.. bestKey];
             
-            Random rnd = new Random();
+                Random rnd = new Random();
 
-            int[][] charPositions = new int[26][];
-            for (int i = 0; i < 26; i++) 
-            {
-                List<int> positions = new();
-                for (int j = 0; j < text.Length; j++)
+                int[][] charPositions = new int[26][];
+                for (int i = 0; i < 26; i++) 
                 {
-                    if (textBytes[j] == i) { positions.Add(j); }
-                }
-                charPositions[i] = positions.ToArray();
-            }
-
-
-            double CurrentScore;
-            double possibleScore = -9999999999;
-            double bestScore = possibleScore;
-            CurrentScore = ngrams.score(text);
-
-            
-
-            while (repeats < r)
-            {
-                possibleKey = [.. alphabet];
-                CurrentScore = ngrams.score(textBytes);
-                Array.Copy(textBytes, possibleDecryption, text.Length);
-
-                for (int i = 0; i < n; i++)
-                {
-
-                    int a = rnd.Next(26);
-                    int b = rnd.Next(26);
-                    if (a == b) continue;
-
-                    (possibleKey[a], possibleKey[b]) = (possibleKey[b], possibleKey[a]);
-
-                    foreach (int pos in charPositions[a]) { possibleDecryption[pos] = possibleKey[a]; }
-                    foreach (int pos in charPositions[b]) { possibleDecryption[pos] = possibleKey[b]; }
-
-                    possibleScore = ngrams.score(possibleDecryption);
-                    if (possibleScore > CurrentScore)
+                    List<int> positions = new();
+                    for (int j = 0; j < text.Length; j++)
                     {
-                        CurrentScore = possibleScore;
-                        Array.Copy(possibleDecryption, CurrentDecryption, text.Length);
-                        Array.Copy(possibleKey, currentKey, 26);
+                        if (textBytes[j] == i) { positions.Add(j); }
                     }
-                    else
-                    {
-                        (possibleKey[a], possibleKey[b]) = (possibleKey[b], possibleKey[a]);
-                        Array.Copy(CurrentDecryption, possibleDecryption, text.Length);
-                    }
+                    charPositions[i] = positions.ToArray();
                 }
 
-                if (CurrentScore > bestScore) 
-                { 
-                    bestScore = CurrentScore;
-                    repeats = 0;
-                    Array.Copy(currentKey, bestKey, 26);
-                    Debug.WriteLine(CurrentScore / text.Length); 
-                }
-                else if (CurrentScore == bestScore)
+
+                double CurrentScore;
+                double possibleScore = -9999999999;
+                double bestScore = possibleScore;
+                CurrentScore = ngrams.score(text);
+
+
+                while ((repeats < r) && (x < n))
                 {
-                    repeats++;
-                } 
-            }
-            char[] oppositeKey = new char[26];
-            for (int i = 0; i < 26; i++) { oppositeKey[bestKey[i]] = Convert.ToChar(i + 'a'); }
+                    possibleKey = [.. alphabet];
+                    rnd.Shuffle(possibleKey);
+                    for (int i = 0; i < possibleDecryption.Length; i++)
+                    {
+                        possibleDecryption[i] = possibleKey[textBytes[i]];
+                    }
+                    CurrentScore = ngrams.score(possibleDecryption);
+                    //Debug.WriteLine($"New random key: {string.Join("", possibleKey.Select(b => Convert.ToChar(b + 'a')))}" + (CurrentScore / text.Length).ToString());
+                    bool improvemnt = true;
+                    while (improvemnt)
+                    {
+                        improvemnt = false;
 
-            for (int index = 0; index < text.Length; index++)
-            {
-                bestDecryption[index] = (char)(bestKey[textBytes[index]] + 'a');
-            }
+                        for (int a = 0; a < 25; a++)
+                        {
+                            for (int b = a+1; b < 26; b++)
+                            {
+                                (possibleKey[a], possibleKey[b]) = (possibleKey[b], possibleKey[a]);
 
-            this.decryption = new string(bestDecryption);
-            this.key = new string(oppositeKey) + (CurrentScore / text.Length).ToString();
+                                foreach (int pos in charPositions[a]) { possibleDecryption[pos] = possibleKey[a]; }
+                                foreach (int pos in charPositions[b]) { possibleDecryption[pos] = possibleKey[b]; }
+
+                                possibleScore = ngrams.score(possibleDecryption);
+                                if (possibleScore / text.Length >= -4.261)
+                                {
+                                    StringBuilder sb = new();
+                                    foreach (var item in possibleDecryption) { sb.Append(Convert.ToChar(item + 'a')); }
+                                    //Debug.WriteLine($"Possible decryption: {sb.ToString()} Score: {possibleScore / text.Length}");
+                                }
+                                if (possibleScore > CurrentScore)
+                                {
+                                    //Debug.WriteLine("true");
+                                    CurrentScore = possibleScore;
+                                    Array.Copy(possibleDecryption, CurrentDecryption, text.Length);
+                                    Array.Copy(possibleKey, currentKey, 26);
+                                    improvemnt = true;
+                                }
+                                else
+                                {
+                                    (possibleKey[a], possibleKey[b]) = (possibleKey[b], possibleKey[a]);
+                                    Array.Copy(CurrentDecryption, possibleDecryption, text.Length);
+                                }
+                                x++;
+                            }
+                        }
+
+
+                        
+                    }
+
+                    if (CurrentScore > bestScore) 
+                    { 
+                        bestScore = CurrentScore;
+                        repeats = 0;
+                        Array.Copy(currentKey, bestKey, 26);
+                        Debug.WriteLine(CurrentScore / text.Length); 
+                    }
+                    else if (CurrentScore == bestScore)
+                    {
+                        repeats++;
+                    }
+
+                }
+                char[] oppositeKey = new char[26];
+                for (int i = 0; i < 26; i++) { oppositeKey[bestKey[i]] = Convert.ToChar(i + 'a'); }
+
+                for (int index = 0; index < text.Length; index++)
+                {
+                    bestDecryption[index] = (char)(bestKey[textBytes[index]] + 'a');
+                }
+
+                this.decryption = new string(bestDecryption);
+                this.key = new string(oppositeKey) + (ngrams.score(this.decryption) / text.Length).ToString();
+
+                stopwatch.Stop();
+                total += (int)stopwatch.ElapsedMilliseconds;
+                Debug.WriteLine($"Substitution cipher solved in {stopwatch.ElapsedMilliseconds} ms" + $" {x}" + " " + repeats);
+            }
+            //Debug.WriteLine($"Average time: {total / 100} ms");
+
 
         }
     }
