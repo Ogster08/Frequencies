@@ -16,7 +16,7 @@ namespace frequencies.View.UserControls
         {
             DataContext = this;
             InitializeComponent();
-            string cipherName = variables.cipher.ToString().ToLower().Replace("_", " ");
+            string cipherName = Variables.cipher.ToString().ToLower().Replace("_", " ");
             Name = char.ToUpper(cipherName[0]) + cipherName.Substring(1);
         }
 

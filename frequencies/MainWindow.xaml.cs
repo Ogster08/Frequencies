@@ -22,42 +22,42 @@ namespace frequencies
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.AFFINE;
+            Variables.cipher = Cipher.AFFINE;
         }
 
         private void Atbash(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.ATBASH;
+            Variables.cipher = Cipher.ATBASH;
         }
 
         private void Caesar(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.CAESAR;
+            Variables.cipher = Cipher.CAESAR;
         }
 
         private void Rail_Fence(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.RAIL_FENCE;
+            Variables.cipher = Cipher.RAIL_FENCE;
         }
 
         private void Substituion(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.SUBSTITUTION;
+            Variables.cipher = Cipher.SUBSTITUTION;
         }
 
         private void Vigenere(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
-            variables.cipher = Cipher.VIGENERE;
+            Variables.cipher = Cipher.VIGENERE;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -127,10 +127,10 @@ namespace frequencies
                 }
             }
 
-            switch (variables.cipher)
+            switch (Variables.cipher)
             {
                 case Cipher.AFFINE:
-                    affine affinesolver = new affine(lettersText);
+                    Affine affinesolver = new Affine(lettersText);
                     affinesolver.solve();
                     string affinesolution = affinesolver.Decryption;
                     foreach (var item in nonLetters) { affinesolution = affinesolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
@@ -139,7 +139,7 @@ namespace frequencies
                     break;
 
                 case Cipher.ATBASH:
-                    atbash atbashsolver = new atbash(lettersText);
+                    Atbash atbashsolver = new Atbash(lettersText);
                     atbashsolver.solve();
                     string atbashsolution = atbashsolver.Decryption;
                     foreach (var item in nonLetters) { atbashsolution = atbashsolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
@@ -156,14 +156,14 @@ namespace frequencies
                     break;
 
                 case Cipher.RAIL_FENCE:
-                    railFence railfencesolver = new railFence(text);
+                    RailFence railfencesolver = new RailFence(text);
                     railfencesolver.solve();
                     SolutionText = railfencesolver.Decryption;
                     KeyText = railfencesolver.Key;
                     break;
 
                 case Cipher.SUBSTITUTION:
-                    substitutian substitutiansolver = new substitutian(lettersText, ngrams);
+                    Substitutian substitutiansolver = new Substitutian(lettersText, ngrams);
                     substitutiansolver.solve();
                     string substitutionsolution = substitutiansolver.Decryption;
                     foreach (var item in nonLetters) { substitutionsolution = substitutionsolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
@@ -172,7 +172,7 @@ namespace frequencies
                     break;
 
                 case Cipher.VIGENERE:
-                    vigenere vigeneresolver = new vigenere(lettersText);
+                    Vigenere vigeneresolver = new Vigenere(lettersText);
                     vigeneresolver.solve();
                     string vigeneresolution = vigeneresolver.Decryption;
                     foreach (var item in nonLetters) { vigeneresolution = vigeneresolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }

@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace frequencies
 {
-    internal class variables
+    internal class Variables
     {
         static public Cipher cipher;
     }
@@ -124,7 +124,7 @@ namespace frequencies
         }
     }
 
-    internal class vigenere
+    internal class Vigenere
     {
 
         private string text;
@@ -134,7 +134,7 @@ namespace frequencies
         public string Decryption { get { return decryption; } }
         public string Key { get { return key.ToString(); } }
 
-        public vigenere(string text)
+        public Vigenere(string text)
         {
             this.text = text;
         }
@@ -249,7 +249,7 @@ namespace frequencies
         }
     }
 
-    internal class affine
+    internal class Affine
     {
         private string text;
         private string decryption = "";
@@ -258,7 +258,7 @@ namespace frequencies
         public string Decryption { get { return decryption; } }
         public string Key { get { return key; } }
 
-        public affine(string Text)
+        public Affine(string Text)
         {
             text = Text;
         }
@@ -327,7 +327,7 @@ namespace frequencies
         }
     }
 
-    internal class railFence
+    internal class RailFence
     {
         private string text;
         private string decryption = "";
@@ -336,7 +336,7 @@ namespace frequencies
         public string Decryption { get { return decryption; } }
         public string Key { get { return key; } }
 
-        public railFence(string Text)
+        public RailFence(string Text)
         {
             text = Text;
         }
@@ -414,7 +414,6 @@ namespace frequencies
     internal class Ngrams
     {
         private double[] scoresUsingInt_;
-        private short[] shortScoresUsingInt_;
         private int l_;
         private double sum_ = 0;
         private double floor_;
@@ -443,9 +442,6 @@ namespace frequencies
             }
 
             floor_ = Math.Log10(0.01 / sum_);
-
-            double absMax = scoresUsingInt_.Max(d => Math.Abs(d));
-            shortScoresUsingInt_ = scoresUsingInt_.Select(d => (short)(d / absMax * short.MaxValue)).ToArray();
         }
 
         private static int EncodeLower(ReadOnlySpan<char> gram)
@@ -506,14 +502,14 @@ namespace frequencies
 
     }
 
-    internal class atbash
+    internal class Atbash
     {
         private string text;
         private StringBuilder decryption = new StringBuilder();
 
         public string Decryption { get { return decryption.ToString(); } }
 
-        public atbash(string Text)
+        public Atbash(string Text)
         {
             text = Text;
         }
@@ -530,7 +526,7 @@ namespace frequencies
         }
     }
 
-    internal class substitutian
+    internal class Substitutian
     {
         private string text;
         private string decryption = "";
@@ -540,14 +536,14 @@ namespace frequencies
         public string Decryption { get { return decryption; } }
         public string Key { get { return key; } }
 
-        public substitutian(string Text)
+        public Substitutian(string Text)
         {
             text = Text;
             ngrams = new("english_quadgrams.txt");
 
         }
 
-        public substitutian(string Text, Ngrams ngrams)
+        public Substitutian(string Text, Ngrams ngrams)
         {
             text = Text;
             this.ngrams = ngrams;
