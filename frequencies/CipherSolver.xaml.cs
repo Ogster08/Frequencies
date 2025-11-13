@@ -180,6 +180,15 @@ namespace frequencies
                     KeyText = vigeneresolver.Key;
                     break;
 
+                case Cipher.TRANSPOSITION_ROW_BY_ROW:
+                    TranspositionRowByRow transpositionRowByRowsolver = new TranspositionRowByRow(lettersText);
+                    transpositionRowByRowsolver.solve();
+                    string transpositionRowByRowsolution = transpositionRowByRowsolver.Decryption;
+                    foreach (var item in nonLetters) { transpositionRowByRowsolution = transpositionRowByRowsolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
+                    SolutionText = transpositionRowByRowsolution;
+                    KeyText = transpositionRowByRowsolver.Key;
+                    break;
+
                 default:
                     break;
             }

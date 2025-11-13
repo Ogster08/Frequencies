@@ -31,10 +31,13 @@
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Rail Fence" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Rail_Fence"/>
                 </Viewbox>
                 <Viewbox Name="box5" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Substitution" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Substituion"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Substitution" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Substitian"/>
                 </Viewbox>
                 <Viewbox Name="box6" MinHeight="80" MaxHeight="120">
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Vigenere" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Vigenere"/>
+                </Viewbox>
+                <Viewbox Name="box7" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Transposition Row by Row" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Transposition_Row_By_Row"/>
                 </Viewbox>
             </StackPanel>
         </ScrollViewer>

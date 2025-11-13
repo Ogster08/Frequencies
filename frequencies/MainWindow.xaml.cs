@@ -46,7 +46,7 @@ namespace frequencies
             Variables.cipher = Cipher.RAIL_FENCE;
         }
 
-        private void Substituion(object sender, RoutedEventArgs e)
+        private void Substitian(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
             frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
@@ -60,6 +60,13 @@ namespace frequencies
             Variables.cipher = Cipher.VIGENERE;
         }
 
+        private void Transposition_Row_By_Row(object sender, RoutedEventArgs e)
+        {
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
+            Variables.cipher = Cipher.TRANSPOSITION_ROW_BY_ROW;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             double h = ((System.Windows.Controls.Panel)Application.Current.MainWindow.Content).ActualHeight;
@@ -69,6 +76,7 @@ namespace frequencies
             box4.MaxHeight = h / 7;
             box5.MaxHeight = h / 7;
             box6.MaxHeight = h / 7;
+            box7.MaxHeight = h / 7;
 
         }
 
@@ -81,6 +89,7 @@ namespace frequencies
             box4.MaxHeight = h / 7;
             box5.MaxHeight = h / 7;
             box6.MaxHeight = h / 7;
+            box7.MaxHeight = h / 7;
         }
     }
 }

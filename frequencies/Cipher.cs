@@ -7,6 +7,7 @@
         CAESAR,
         RAIL_FENCE,
         SUBSTITUTION,
-        VIGENERE
+        VIGENERE,
+        TRANSPOSITION_ROW_BY_ROW
     }
 }
