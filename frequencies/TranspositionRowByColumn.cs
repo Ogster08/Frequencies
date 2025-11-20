@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace frequencies
 {
-    internal class TranspositionRowByRow
+    internal class TranspositionRowByColumn
     {
         private int l_;
         private double[] scoresUsingInt_;
@@ -21,7 +21,7 @@ namespace frequencies
         public string Decryption { get { return decryption; } }
         public string Key { get { return key; } }
 
-        public TranspositionRowByRow(string Text)
+        public TranspositionRowByColumn(string Text)
         {
             text = Text;
         }
