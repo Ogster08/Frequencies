@@ -39,6 +39,13 @@ namespace frequencies
             Variables.cipher = Cipher.CAESAR;
         }
 
+        private void Playfair(object sender, RoutedEventArgs e)
+        {
+            Frame frame = (Application.Current.MainWindow as MainWindow).Main;
+            frame.Navigate(new Uri("/CipherSolver.xaml", UriKind.RelativeOrAbsolute));
+            Variables.cipher = Cipher.PLAYFAIR;
+        }
+
         private void Rail_Fence(object sender, RoutedEventArgs e)
         {
             Frame frame = (Application.Current.MainWindow as MainWindow).Main;
@@ -77,6 +84,7 @@ namespace frequencies
             box5.MaxHeight = h / 7;
             box6.MaxHeight = h / 7;
             box7.MaxHeight = h / 7;
+            box8.MaxHeight = h / 7;
 
         }
 
@@ -90,6 +98,7 @@ namespace frequencies
             box5.MaxHeight = h / 7;
             box6.MaxHeight = h / 7;
             box7.MaxHeight = h / 7;
+            box8.MaxHeight = h / 7;
         }
     }
 }

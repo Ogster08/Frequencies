@@ -155,6 +155,15 @@ namespace frequencies
                     KeyText = caesarsolver.Key[0].ToString();
                     break;
 
+                case Cipher.PLAYFAIR:
+                    Playfair playfairSolver = new Playfair(lettersText);
+                    playfairSolver.solve();
+                    string playfairSolution = playfairSolver.Decryption;
+                    foreach (var item in nonLetters) { playfairSolution = playfairSolution.Insert(Convert.ToInt32(item[1]), item[0].ToString()); }
+                    SolutionText = playfairSolution;
+                    KeyText = playfairSolver.Key;
+                    break;
+
                 case Cipher.RAIL_FENCE:
                     RailFence railfencesolver = new RailFence(text);
                     railfencesolver.solve();

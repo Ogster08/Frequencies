@@ -5,6 +5,7 @@
         AFFINE,
         ATBASH,
         CAESAR,
+        PLAYFAIR,
         RAIL_FENCE,
         SUBSTITUTION,
         VIGENERE,

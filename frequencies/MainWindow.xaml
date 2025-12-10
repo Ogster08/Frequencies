@@ -28,15 +28,18 @@
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Caesar" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Caesar"/>
                 </Viewbox>
                 <Viewbox Name="box4" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Rail Fence" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Rail_Fence"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Playfair" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Playfair"/>
                 </Viewbox>
                 <Viewbox Name="box5" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Substitution" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Substitian"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Rail Fence" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Rail_Fence"/>
                 </Viewbox>
                 <Viewbox Name="box6" MinHeight="80" MaxHeight="120">
-                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Vigenere" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Vigenere"/>
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Substitution" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Substitian"/>
                 </Viewbox>
                 <Viewbox Name="box7" MinHeight="80" MaxHeight="120">
+                    <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Vigenere" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Vigenere"/>
+                </Viewbox>
+                <Viewbox Name="box8" MinHeight="80" MaxHeight="120">
                     <Button Style="{DynamicResource ButtonStyle}" BorderThickness="0" Content="Transposition Row by Row" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Transposition_Row_By_Row"/>
                 </Viewbox>
             </StackPanel>
